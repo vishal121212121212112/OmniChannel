@@ -1,0 +1,19 @@
+<h1>Counter</h1>
+
+<p>This is a simple example of an Angular component.</p>
+
+<p>Current count: <strong>{{ currentCount }}</strong></p>
+
+<button class="btn btn-primary" (click)="incrementCounter()">Increment</button>
+<br/><br/>
+<div class="example-box" cdkDragLockAxis="y" cdkDrag>
+    I can only be dragged up/down
+  </div>
+  
+  <div class="example-box" cdkDragLockAxis="x" cdkDrag>
+    I can only be dragged left/right
+  </div>
+  <br/>
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
+  </div>
