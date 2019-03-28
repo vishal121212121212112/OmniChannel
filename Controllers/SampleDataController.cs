@@ -25,6 +25,11 @@ namespace MyAngularApp.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             });
         }
+        [HttpPost("[action]")]
+        public string InsertEnrollmentData()
+        {
+            return "Data saved successfully!";
+        }
 
         public class WeatherForecast
         {

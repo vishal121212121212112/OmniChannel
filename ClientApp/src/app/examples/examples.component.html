@@ -1,3 +1,41 @@
-<p>
-  examples works!
-</p>
+<div class = "container-fluid">
+  <form #userForm ="ngForm" (ngSubmit) = "onSubmit()" novalidate>
+    <!-- {{userForm.value | json}}
+    <hr/>
+    {{userModel | json}} -->
+    <!-- {{userForm.form.valid}} -->
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" #name ="ngModel" [class.is-invalid] = "name.touched && name.invalid" required class="form-control" [(ngModel)]="userModel.name" name="Name"/>
+          <small class= "text-danger" [class.d-none] = "name.valid || name.untouched">Name is required</small>
+        </div>
+        <!-- {{name.valid}} -->
+        <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" #phone="ngModel" pattern = "^\d{10}$" [class.is-invalid] = "phone.touched && phone.invalid" class="form-control" [(ngModel)] ="userModel.Phone" name="Phone"/>
+            <div *ngIf= "phone.errors && (phone.invalid || phone.touched)">
+                <small class="text-danger" *ngIf = "phone.errors.required">Phone number is required</small>  
+                <small class="text-danger" *ngIf = "phone.errors.pattern">Phone number must be of 10 digits</small>  
+            </div>
+        </div>
+        <div class="form-group">
+            <select (blur) = "validateTopic(topic.value)" (change) = "validateTopic(topic.value)"  #topic = "ngModel" 
+            [class.is-invalid] = "ng-touched && topicHasError" class="custom-select"  [(ngModel)] = "userModel.interest"  name="interest">
+              <option value = "Default" selected>I am interested in</option>
+              <option *ngFor = "let topic of topics">{{topic}}</option>
+            </select>
+            <small class="text-danger" [class.d-none] = "!topicHasError || topic.untouched">Topic is required</small>
+        </div>
+        <!-- <div ngModelGroup="address">
+          <div class="form-group">
+              <label>Street</label>
+              <input type="text" class="form-control" ngModel name="Street"/>
+          </div>
+          <div class="form-group">
+              <label>City</label>
+              <input type="text" class="form-control" ngModel name="City"/>
+          </div>
+        </div> -->
+        <button class="btn btn-primary" [disabled] = "topicHasError || userForm.form.invalid">Submit</button>
+  </form>
+
